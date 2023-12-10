@@ -9,11 +9,13 @@ router.get('/campos', async (req, res) => {
    res.json(data);
 });
 
-router.post('/campos', async (req, res) => {
+router.post('/campos', async (req, res) => {       
+
    try {
-      await crearCampo(req.body)
-      res.status(200)
-   } catch (error) {
+      const data = await crearCampo(req.body);
+      res.json([data]);
+      console.log("Dato nuevo insertado satisfactoriamente");
+      } catch (error) {
       console.error("Oh no! Something went wrong" , error);
       res.status(404)
    }

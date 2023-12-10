@@ -2,8 +2,17 @@ const express = require('express');
 
 const router = express.Router();
 
-const {listarUsuarios} = require('../repository/usuarios.repository')
+const {listarUsuarios , agregarUsuarios} = require('../repository/usuarios.repository')
 
+
+
+/* router.post('/usuarios' , async(req, res) => {
+    const data =await agregarUsuarios();
+    data
+    .save().then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+
+}) */
 
 router.get('/usuarios', async (req, res) => {
     const data = await listarUsuarios();

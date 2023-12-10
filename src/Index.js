@@ -15,6 +15,7 @@ const port = process.env.PORT || 9000;
 
 const routes = [camposRoutes , diasRoutes, usuariosRoutes ,reservasDisponiblesRoutes]
 
+app.use(express.json());
 app.use('/api',routes);
 
 

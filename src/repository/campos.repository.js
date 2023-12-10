@@ -9,6 +9,8 @@ const listarCampos = async () => {
 
 const crearCampo = async (data) => {
     await CamposModel.create(data);
+    const todosLosCampos = await listarCampos();
+    return todosLosCampos;
 }
 
 

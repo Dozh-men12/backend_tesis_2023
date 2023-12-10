@@ -5,4 +5,9 @@ const listarUsuarios = async () =>{
     return data;
 }
 
-module.exports = {listarUsuarios};
+const agregarUsuarios = async () =>{
+    const data = await usuariosModel.create();
+    return data;
+}
+
+module.exports = {listarUsuarios , agregarUsuarios};
