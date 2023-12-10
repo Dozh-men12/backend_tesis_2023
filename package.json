@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/database/database.js"
+    "start": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
