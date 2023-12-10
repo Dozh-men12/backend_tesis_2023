@@ -1,4 +1,7 @@
+require('./database/database')
+
 const express = require('express') ;
+
 const camposRoutes = require('./controllers/camposController') 
 
 const app =  express();
