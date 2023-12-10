@@ -1,6 +1,18 @@
-//
+const DiasModel = require('../database/models/dias.models');
 
-/* const listarDías = async () => { */
-    //llamo la conexion a la base de datos 
-/*     return async mongo.find()
-} */
+const listarDias = async () => {
+    const data =  await DiasModel.find();
+    return data;
+}
+
+
+const crearDias = async (data) => {
+    await CamposModel.create(data);
+}
+
+
+module.exports = {
+    listarDias,
+    crearDias
+};
+

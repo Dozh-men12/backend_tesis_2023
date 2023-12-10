@@ -14,7 +14,7 @@ router.post('/campos', async (req, res) => {
       await crearCampo(req.body)
       res.status(200)
    } catch (error) {
-      console.error(error)
+      console.error("Oh no! Something went wrong" , error);
       res.status(404)
    }
 

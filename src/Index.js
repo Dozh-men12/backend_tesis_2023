@@ -1,8 +1,9 @@
-require('./database/database')
-
+require('./database/database');
 const express = require('express') ;
 
+
 const camposRoutes = require('./controllers/camposController') 
+const diasRoutes = require('./controllers/diasController') 
 
 const app =  express();
 const port = process.env.PORT || 9000;
@@ -10,7 +11,10 @@ const port = process.env.PORT || 9000;
 
 //middleware
 
-app.use('/api',camposRoutes);
+const routes = [camposRoutes , diasRoutes]
+
+app.use('/api',routes);
+
 
 
 //ROUTES

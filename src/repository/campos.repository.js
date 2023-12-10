@@ -1,8 +1,4 @@
-/* const mongo = require('mongoose');
 
-const listarCampos = async () =>{
-    return async mongo.find()
-} */
 const CamposModel = require('../database/models/campos.model');
 
 const listarCampos = async () => {
