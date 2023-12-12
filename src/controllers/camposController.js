@@ -15,7 +15,7 @@ router.post('/campos', async (req, res) => {
    try {
       const data = await crearCampo(req.body);
       res.json([data]);
-      console.log("Dato nuevo insertado en la BD ");
+      console.log("Campo nuevo insertado en la BD ");
       } catch (error) {
       console.error("El dato no fue insertado en la BD :(" , error);
       res.status(404)
@@ -51,7 +51,7 @@ router.delete('/campos/:id', async (req, res) => {
        const data = await borrarCampo(req.params.id);
        res.json(data);
    } catch (error) {
-       console.error('Error al borrar campo y obtener todos los datos', error);
+       console.error('Error al borrar campo ', error);
        res.status(500).json({ message: 'Error interno del servidor' });
    }
 });
