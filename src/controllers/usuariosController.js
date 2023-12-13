@@ -4,6 +4,8 @@ const router = express.Router();
 
 const {listarUsuarios , agregarUsuario ,actualizarUsuario,eliminarUsuario ,listarUsuarioporID} = require('../repository/usuarios.repository')
 
+const Estudiante = require('../database/models/usuarios.model')
+
 // Listar Usuarios
 router.get('/usuarios', async (req, res) => {
     const data = await listarUsuarios();
@@ -12,15 +14,25 @@ router.get('/usuarios', async (req, res) => {
 
 //Listar usuario por ID
 
-router.get('/usuarios/:id' , async (req, res) => {
-    try{
-        const usuario = await listarUsuarioporID(req.params.id);
-        res.json(usuario);
-    }catch(error){
-        console.log('Error al obtener el usuario por ID');
-        res.status(500).json({ message : 'Error interno del servidor'});
+router.get('/:id_estudiante', async (req, res) => {
+    try {
+      const codigoEstudiante = req.params.id_estudiante;
+      console.log('Recibida solicitud para obtener estudiante con código:', codigoEstudiante);
+  
+      const estudiante = await Estudiante.findOne({ id_estudiante: codigoEstudiante });
+  
+      if (!estudiante) {
+        console.log('Estudiante no encontrado');
+        return res.status(404).json({ error: 'Estudiante no encontrado' });
+      }
+  
+      console.log('Estudiante encontrado:', estudiante);
+      res.json(estudiante);
+    } catch (error) {
+      console.error('Error al procesar la solicitud:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
     }
-});
+  });
 
 //Insertar usuario
 
