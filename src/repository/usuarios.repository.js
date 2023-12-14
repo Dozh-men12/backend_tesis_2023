@@ -1,4 +1,5 @@
 const usuariosModel = require('../database/models/usuarios.model');
+const mongoose = require('mongoose');
 
 //Listar usuarios
 const listarUsuarios = async () =>{
@@ -20,11 +21,25 @@ const agregarUsuario = async (data) =>{
 }
 
 //Actualizar usuario
-const actualizarUsuario = async (usuarioID,newData) =>{
-    await usuariosModel.findByIdAndUpdate(usuarioID , newData);
-    const todosLosUsuarios = await listarUsuarios();
-    return todosLosUsuarios;
-}
+const actualizarUsuario = async (id_estudiante, newData) => {
+    try {
+        // Utiliza el campo id_estudiante al actualizar
+        const result = await usuariosModel.findOneAndUpdate(
+            { id_estudiante: id_estudiante },
+            newData,
+            { new: true } // Para devolver el documento actualizado
+        );
+
+        // Si deseas obtener todos los usuarios después de la actualización,
+        // puedes realizar la operación de listarUsuarios aquí.
+        const todosLosUsuarios = await listarUsuarios();
+        
+        return { result, todosLosUsuarios };
+    } catch (error) {
+        console.error('Error al actualizar el usuario', error);
+        throw error;
+    }
+};
 
 //Eliminar usuario
 

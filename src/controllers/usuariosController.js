@@ -45,15 +45,20 @@ router.post('/usuarios' , async (req, res) => {
 })
 
 //Actualizar usuario
-router.put('/usuarios/:id_estudiante' , async (req, res) =>{
-    try{
-        const codigoUsuario = req.params.id_estudiante;
+router.put('/usuarios/:id_estudiante' , async (req, res) => {
+    try {
+        const id_estudiante = req.params.id_estudiante;
 
-        const usuario = await listarUsuarioporID({id_estudiante: codigoUsuario});
+        // Antes de actualizar, verifica si el usuario existe
+        const usuario = await listarUsuarioporID({ id_estudiante });
 
-        const data = await actualizarUsuario(req.params.id, req.body);
+        if (!usuario) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        const data = await actualizarUsuario(id_estudiante, req.body);
         res.json(data);
-    }catch(error){
+    } catch (error) {
         console.error('Error al actualizar el usuario', error);
         res.status(500).json({ message: 'Error interno del servidor' });
     }
