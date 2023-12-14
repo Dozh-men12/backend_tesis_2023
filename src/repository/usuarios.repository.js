@@ -1,4 +1,3 @@
-const CamposModel = require('../database/models/campos.model');
 const usuariosModel = require('../database/models/usuarios.model');
 
 //Listar usuarios
@@ -8,8 +7,8 @@ const listarUsuarios = async () =>{
 }
 
 //Listar usuario por ID
-const listarUsuarioporID = async (usuarioID) =>{
-    const data = await usuariosModel.findById(usuarioID);
+const listarUsuarioporID = async (id_estudiante) =>{
+    const data = await usuariosModel.findOne(id_estudiante);
     return data;
 }
 

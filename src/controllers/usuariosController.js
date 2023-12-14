@@ -4,8 +4,6 @@ const router = express.Router();
 
 const {listarUsuarios , agregarUsuario ,actualizarUsuario,eliminarUsuario ,listarUsuarioporID} = require('../repository/usuarios.repository')
 
-const Estudiante = require('../database/models/usuarios.model')
-
 // Listar Usuarios
 router.get('/usuarios', async (req, res) => {
     const data = await listarUsuarios();
@@ -14,28 +12,27 @@ router.get('/usuarios', async (req, res) => {
 
 //Listar usuario por ID
 
-router.get('/:id_estudiante', async (req, res) => {
+router.get('/usuarios/:id_estudiante', async (req, res) => {
     try {
-      const codigoEstudiante = req.params.id_estudiante;
-      console.log('Recibida solicitud para obtener estudiante con código:', codigoEstudiante);
-  
-      const estudiante = await Estudiante.findOne({ id_estudiante: codigoEstudiante });
-  
-      if (!estudiante) {
-        console.log('Estudiante no encontrado');
-        return res.status(404).json({ error: 'Estudiante no encontrado' });
-      }
-  
-      console.log('Estudiante encontrado:', estudiante);
-      res.json(estudiante);
-    } catch (error) {
-      console.error('Error al procesar la solicitud:', error);
-      res.status(500).json({ error: 'Error interno del servidor' });
+        const codigoUsuario = req.params.id_estudiante;
+
+        const usuario = await listarUsuarioporID({id_estudiante: codigoUsuario});
+
+        if (!usuario) {
+            console.log('Estudiante no encontrado');
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+      
+        console.log('Estudiante encontrado:', usuario);
+        res.json(usuario);
+    }catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
     }
-  });
+});
 
 //Insertar usuario
-
+//Para crear un usuario abajo del body dentro de postman debe estar en formato JSON no en TEXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 router.post('/usuarios' , async (req, res) => {
     try{
         const data = await agregarUsuario(req.body);
@@ -48,8 +45,12 @@ router.post('/usuarios' , async (req, res) => {
 })
 
 //Actualizar usuario
-router.put('/usuarios/:id' , async (req, res) =>{
+router.put('/usuarios/:id_estudiante' , async (req, res) =>{
     try{
+        const codigoUsuario = req.params.id_estudiante;
+
+        const usuario = await listarUsuarioporID({id_estudiante: codigoUsuario});
+
         const data = await actualizarUsuario(req.params.id, req.body);
         res.json(data);
     }catch(error){
