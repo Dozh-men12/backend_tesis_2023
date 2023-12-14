@@ -65,18 +65,25 @@ router.put('/usuarios/:id_estudiante' , async (req, res) => {
 });
 
 //Eliminar usuario
+router.delete('/usuarios/:id_estudiante', async (req, res) => {
+    try {
+        const id_estudiante = req.params.id_estudiante;
 
-router.delete('/usuarios/:id' , async (req, res) => {
-    try{
-        const data = await eliminarUsuario(req.params.id);
+        // Antes de eliminar, verifica si el usuario existe
+        const usuario = await listarUsuarioporID({ id_estudiante });
+
+        if (!usuario) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        const data = await eliminarUsuario(id_estudiante);
         res.json(data);
-
-    }catch(error){
-        console.error('Error al borrar el usuario', error);
+    } catch (error) {
+        console.error('Error al eliminar el usuario', error);
         res.status(500).json({ message: 'Error interno del servidor' });
-
     }
 });
+
 
 
 

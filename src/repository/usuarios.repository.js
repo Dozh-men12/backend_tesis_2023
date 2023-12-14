@@ -42,11 +42,19 @@ const actualizarUsuario = async (id_estudiante, newData) => {
 };
 
 //Eliminar usuario
+const eliminarUsuario = async (id_estudiante) => {
+    try {
+        // Utiliza el campo id_estudiante para eliminar el usuario
+        await usuariosModel.findOneAndDelete({ id_estudiante });
 
-const eliminarUsuario = async(usuarioID) =>{
-    await usuariosModel.findByIdAndDelete(usuarioID);
-    const todosLosUsuarios = await listarUsuarios();
-    return todosLosUsuarios;
-}
+        // Obtén todos los usuarios después de la eliminación
+        const todosLosUsuarios = await listarUsuarios();
+        return todosLosUsuarios;
+    } catch (error) {
+        console.error('Error al eliminar el usuario', error);
+        throw error;
+    }
+};
+
 
 module.exports = {listarUsuarios , agregarUsuario,listarUsuarioporID,actualizarUsuario,eliminarUsuario};
