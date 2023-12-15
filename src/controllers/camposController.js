@@ -26,7 +26,9 @@ router.post('/campos', async (req, res) => {
 
 router.get('/campos/:id', async (req, res) => {
    try {
-       const campo = await obtenerCampoPorId(req.params.id);
+        const campoId =req.params.id;
+
+        const campo = await obtenerCampoPorId({id: campoId});
        res.json(campo);
    } catch (error) {
        console.error('Error al obtener campo por ID', error);
@@ -37,23 +39,33 @@ router.get('/campos/:id', async (req, res) => {
 // Actualizar campo
 router.put('/campos/:id', async (req, res) => {
    try {
-       const data = await actualizarCampo(req.params.id, req.body);
-       res.json(data);
-   } catch (error) {
-       console.error('Error al actualizar campo y obtener todos los datos', error);
-       res.status(500).json({ message: 'Error interno del servidor' });
-   }
+      const id =req.params.id;
+
+      // Antes de actualizar, verifica si el usuario existe
+      const campo = await obtenerCampoPorId({ id });
+
+      if (!campo) {
+          return res.status(404).json({ message: 'Campo no encontrado' });
+      }
+
+      const data = await actualizarCampo(id, req.body);
+      res.json(data);
+  } catch (error) {
+      console.error('Error al actualizar el campo', error);
+      res.status(500).json({ message: 'Error interno del servidor' });
+  }
 });
 
-// Borrar campo
+// Eliminar campo
 router.delete('/campos/:id', async (req, res) => {
    try {
-       const data = await borrarCampo(req.params.id);
-       res.json(data);
-   } catch (error) {
-       console.error('Error al borrar campo ', error);
-       res.status(500).json({ message: 'Error interno del servidor' });
-   }
+      const campoId =req.params.id;
+      const data = await borrarCampo({id: campoId});  
+      res.json(data);
+  } catch (error) {
+      console.error('Error al borrar campo ', error);
+      res.status(500).json({ message: 'Error interno del servidor' });
+  }
 });
 
 

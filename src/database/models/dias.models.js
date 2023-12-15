@@ -2,7 +2,7 @@ const mongoose = require ('mongoose');
 
 
 const diasSchema = new mongoose.Schema({
-    id: String,
+    id: Number,
     nombre: String,
 });
   

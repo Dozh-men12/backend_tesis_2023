@@ -2,7 +2,7 @@ const mongoose = require ('mongoose');
 
 
 const camposSchema = new mongoose.Schema({
-    id:  { type: Number, required: true },
+    id:  Number,
     nombre: String,
 });
   
