@@ -1,6 +1,7 @@
 const usuariosModel = require('../database/models/usuarios.model');
 const mongoose = require('mongoose');
-
+const Joi = require('joi');
+ 
 //Listar usuarios
 const listarUsuarios = async () =>{
     const data = await usuariosModel.find();
@@ -56,5 +57,22 @@ const eliminarUsuario = async (id_estudiante) => {
     }
 };
 
+//authentication del usuario
+const autenticarUsuario = async (id_estudiante, correoInstitucional) => {
+    try {
+        // Buscar un usuario con el id_estudiante y correoInstitucional proporcionados
+        const usuario = await usuariosModel.findOne({
+            id_estudiante,
+            correoInstitucional,
+        });
 
-module.exports = {listarUsuarios , agregarUsuario,listarUsuarioporID,actualizarUsuario,eliminarUsuario};
+        // Devolver el usuario encontrado o null si no se encuentra
+        return usuario;
+    } catch (error) {
+        console.error('Error al autenticar el usuario', error);
+        throw error;
+    }
+};
+
+
+module.exports = {listarUsuarios , agregarUsuario,listarUsuarioporID,actualizarUsuario,eliminarUsuario, autenticarUsuario};
