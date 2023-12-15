@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const {listarUsuarios , agregarUsuario ,actualizarUsuario,eliminarUsuario ,listarUsuarioporID} = require('../repository/usuarios.repository')
+const {listarUsuarios , agregarUsuario ,actualizarUsuario,eliminarUsuario ,listarUsuarioporID, autenticarUsuario} = require('../repository/usuarios.repository')
 
 // Listar Usuarios
 router.get('/usuarios', async (req, res) => {
@@ -84,6 +84,23 @@ router.delete('/usuarios/:id_estudiante', async (req, res) => {
     }
 });
 
+// Autenticar usuario
+router.post('/usuarios/auth', async (req, res) => {
+    try {
+        const { id_estudiante, correoInstitucional } = req.body;
+        // Verificar si el usuario existe con el id_estudiante y correoInstitucional proporcionados
+        const usuario = await autenticarUsuario(id_estudiante, correoInstitucional);
+        if (!usuario) {
+            return res.status(401).json({ message: 'Credenciales incorrectas' });
+        }
+        // Puedes agregar más lógica de autenticación aquí según tus necesidades.
+        // Devolver información del usuario autenticado
+        res.json({ message: 'Usuario autenticado correctamente', usuario });
+    } catch (error) {
+        console.error('Error al autenticar el usuario', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
+});
 
 
 
