@@ -17,6 +17,6 @@ const usuariosSchema = new mongoose.Schema({
     ciclo: Number,
 });
 
-const usuariosModel = mongoose.model('usuarios', usuariosSchema);
+const usuario = mongoose.model('usuarios', usuariosSchema);
 
-module.exports = usuariosModel;
+module.exports = usuario;

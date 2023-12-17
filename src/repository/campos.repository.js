@@ -1,29 +1,29 @@
 
-const CamposModel = require('../database/models/campos.model');
+const campos = require('../database/models/campos.model');
 
 //Listar Campo
 const listarCampos = async () => {
-    const data =  await CamposModel.find();
+    const data =  await campos.find();
     return data;
 }
 
 // Crear campo
 const crearCampo = async (data) => {
-    await CamposModel.create(data);
+    await campos.create(data);
     const todosLosCampos = await listarCampos();
     return todosLosCampos;
 }
 
 //Listar Campo por ID
 const obtenerCampoPorId = async (id) => {
-    const campo = await CamposModel.findOne(id);
+    const campo = await campos.findOne(id);
     return campo;
 }
 
 //Actualizar campo
 const actualizarCampo = async (id, newData) => {
     try{
-        const result = await CamposModel.findOneAndUpdate(
+        const result = await campos.findOneAndUpdate(
             {id: id},
             newData,
             {new: true}
@@ -36,14 +36,14 @@ const actualizarCampo = async (id, newData) => {
         throw error;
 
     }
-    /* await CamposModel.findOneAndUpdate(id, newData);
+    /* await campos.findOneAndUpdate(id, newData);
     const todosLosCampos = await listarCampos();
     return todosLosCampos; */
 }
 
 //Elimar campo
 const borrarCampo = async (id) => {
-    await CamposModel.findOneAndDelete(id);
+    await campos.findOneAndDelete(id);
     const todosLosCampos = await listarCampos();
     return todosLosCampos;
 }

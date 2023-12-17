@@ -1,22 +1,22 @@
-const usuariosModel = require('../database/models/usuarios.model');
+const usuario = require('../database/models/usuarios.model');
 const mongoose = require('mongoose');
 const Joi = require('joi');
  
 //Listar usuarios
 const listarUsuarios = async () =>{
-    const data = await usuariosModel.find();
+    const data = await usuario.find();
     return data;
 }
 
 //Listar usuario por ID
 const listarUsuarioporID = async (id_estudiante) =>{
-    const data = await usuariosModel.findOne(id_estudiante);
+    const data = await usuario.findOne(id_estudiante);
     return data;
 }
 
 //Agregar usuarios
 const agregarUsuario = async (data) =>{
-    await usuariosModel.create(data);
+    await usuario.create(data);
     const todosLosUsuarios = await listarUsuarios();
     return todosLosUsuarios;
 }
@@ -25,7 +25,7 @@ const agregarUsuario = async (data) =>{
 const actualizarUsuario = async (id_estudiante, newData) => {
     try {
         // Utiliza el campo id_estudiante al actualizar
-        const result = await usuariosModel.findOneAndUpdate(
+        const result = await usuario.findOneAndUpdate(
             { id_estudiante: id_estudiante },
             newData,
             { new: true } // Para devolver el documento actualizado
@@ -46,7 +46,7 @@ const actualizarUsuario = async (id_estudiante, newData) => {
 const eliminarUsuario = async (id_estudiante) => {
     try {
         // Utiliza el campo id_estudiante para eliminar el usuario
-        await usuariosModel.findOneAndDelete({ id_estudiante });
+        await usuario.findOneAndDelete({ id_estudiante });
 
         // Obtén todos los usuarios después de la eliminación
         const todosLosUsuarios = await listarUsuarios();
@@ -61,7 +61,7 @@ const eliminarUsuario = async (id_estudiante) => {
 const autenticarUsuario = async (id_estudiante, correoInstitucional) => {
     try {
         // Buscar un usuario con el id_estudiante y correoInstitucional proporcionados
-        const usuario = await usuariosModel.findOne({
+        const usuario = await usuario.findOne({
             id_estudiante,
             correoInstitucional,
         });
