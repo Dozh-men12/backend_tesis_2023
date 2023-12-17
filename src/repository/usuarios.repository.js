@@ -1,6 +1,5 @@
 const usuariosModel = require('../database/models/usuarios.model');
 const mongoose = require('mongoose');
-const Joi = require('joi');
  
 //Listar usuarios
 const listarUsuarios = async () =>{
