@@ -53,8 +53,17 @@ const listarRDporId = async (id) => {
     }
 }
 
+//Agregando reservas
 const agregarRD = async (data) =>{
     await reservasDisponiblesModel.create(data);
+    const todasLasReservas = await listarReservasDisponibles();
+    return todasLasReservas;
+}
+
+//Eliminando reserva
+
+const eliminarRD = async (id) =>{
+    await reservasDisponiblesModel.findByIdAndDelete(id);
     const todasLasReservas = await listarReservasDisponibles();
     return todasLasReservas;
 }
@@ -63,4 +72,4 @@ const agregarRD = async (data) =>{
 
 
 
-module.exports = { listarReservasDisponibles,listarRDporId,agregarRD};
+module.exports = { listarReservasDisponibles,listarRDporId,agregarRD,eliminarRD};

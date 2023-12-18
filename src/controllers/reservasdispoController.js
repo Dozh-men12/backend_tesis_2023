@@ -1,9 +1,8 @@
 const express = require('express');
 
 const router = express.Router();
-/* const {listarReservasDisponibles} = require ('../repository/reservasDisponibles.repository'); */
 
-const { listarReservasDisponibles,listarRDporId,agregarRD} = require ('../repository/reservasDisponibles.repository');
+const { listarReservasDisponibles,listarRDporId,agregarRD,eliminarRD} = require ('../repository/reservasDisponibles.repository');
 
 
 //Listando todas las reservas
@@ -38,6 +37,19 @@ router.post('/reservas-disponibles', async (req, res) => {
         console.error("La reserva no fue ingresada en la BD" , error);
         res.status(404)
     }
+})
+
+//Eliminar reserva
+router.delete('/reservas-disponibles/:id', async (req, res) =>{
+    try{
+        const data = await eliminarRD(req.params.id);
+        res.json(data);
+
+    }catch(error){
+        console.error("No se pudo eliminar la reserva" , error);
+        res.status(404)
+    }
+    
 })
 
 
