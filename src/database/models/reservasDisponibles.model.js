@@ -9,9 +9,9 @@ const reservasDisponiblesSchema = new mongoose.Schema({
     estudiante: { type: mongoose.Schema.Types.ObjectId, ref:'usuarios'},
     campo : {type : mongoose.Schema.Types.ObjectId, ref:'campos'},
     dia : {type : mongoose.Schema.Types.ObjectId, ref:'dias'},
-    estado: String,
+    /* estado: String,
     fecha_inicio: Date,
-    fecha_fin: Date,
+    fecha_fin: Date, */
 });
 
 

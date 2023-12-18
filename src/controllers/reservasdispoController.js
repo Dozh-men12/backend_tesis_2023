@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 /* const {listarReservasDisponibles} = require ('../repository/reservasDisponibles.repository'); */
 
-const { listarReservasDisponibles,listarRDporId } = require ('../repository/reservasDisponibles.repository');
+const { listarReservasDisponibles,listarRDporId,agregarRD} = require ('../repository/reservasDisponibles.repository');
 
 
 //Listando todas las reservas
@@ -24,28 +24,20 @@ router.get('/reservas-disponibles/:id', async(req,res) =>{
         res.status(500).json({ message: 'Error interno del servidor' });
     }
     
-   
+})
 
-   /*  try {
+//Agregando reservas 
 
+router.post('/reservas-disponibles', async (req, res) => {
+    try{
+        const data = await agregarRD(req.body)
+        res.json([data]);
+        console.log("Reserva nueva ingresada en la BD");
 
-
-       
-        const idUsuario = req.params.id_estudiante
-
-        const usuario = await listarRDporId(idUsuario)
-
-        if (!usuario) {
-            console.log('Dia no encontrado');
-            return res.status(404).json({ error: 'Dia no encontrado' });
-        }
-      
-        console.log('Reserva encontrada', usuario);
-        res.json(usuario);
-    }catch (error) {
-        console.error('Error al procesar la solicitud:', error);
-        res.status(500).json({ error: 'Error interno del servidor' });
-    } */
+    }catch(error){
+        console.error("La reserva no fue ingresada en la BD" , error);
+        res.status(404)
+    }
 })
 
 

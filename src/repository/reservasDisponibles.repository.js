@@ -1,14 +1,7 @@
 const reservasDisponiblesModel = require ('../database/models/reservasDisponibles.model')
-const usuario = require('../database/models/usuarios.model.js')
 
-
-/* const listarReservasDisponibles = async () =>{
-    const data = await reservasDisponiblesModel.find();
-    return data;    
-} */
 
 // Listando reservasDisponibles
-
 const listarReservasDisponibles = async () => {
     try {
         const data = await reservasDisponiblesModel
@@ -35,7 +28,6 @@ const listarReservasDisponibles = async () => {
 
 
 //Listando reservasDisponibles por id_alumno
-
 const listarRDporId = async (id) => {
     try {
         const data = await reservasDisponiblesModel
@@ -61,5 +53,14 @@ const listarRDporId = async (id) => {
     }
 }
 
+const agregarRD = async (data) =>{
+    await reservasDisponiblesModel.create(data);
+    const todasLasReservas = await listarReservasDisponibles();
+    return todasLasReservas;
+}
 
-module.exports = { listarReservasDisponibles,listarRDporId };
+
+
+
+
+module.exports = { listarReservasDisponibles,listarRDporId,agregarRD};
