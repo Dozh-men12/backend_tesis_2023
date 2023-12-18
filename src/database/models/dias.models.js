@@ -7,6 +7,6 @@ const diasSchema = new mongoose.Schema({
 });
   
 // Define el modelo
-const DiasModel = mongoose.model('dias', diasSchema);
+const dias = mongoose.model('dias', diasSchema);
 
-module.exports = DiasModel;
+module.exports = dias;
