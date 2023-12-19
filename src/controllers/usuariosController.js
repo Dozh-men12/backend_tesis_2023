@@ -103,5 +103,4 @@ router.post('/usuarios/auth', async (req, res) => {
 });
 
 
-
 module.exports = router;
