@@ -60,13 +60,13 @@ const eliminarUsuario = async (id_estudiante) => {
 const autenticarUsuario = async (id_estudiante, correoInstitucional) => {
     try {
         // Buscar un usuario con el id_estudiante y correoInstitucional proporcionados
-        const usuario = await usuario.findOne({
+        const Usuario = await usuario.findOne({
             id_estudiante,
             correoInstitucional,
         });
 
         // Devolver el usuario encontrado o null si no se encuentra
-        return usuario;
+        return Usuario;
     } catch (error) {
         console.error('Error al autenticar el usuario', error);
         throw error;
