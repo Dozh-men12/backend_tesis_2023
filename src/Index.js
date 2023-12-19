@@ -6,6 +6,7 @@ const camposRoutes = require('./controllers/camposController')
 const diasRoutes = require('./controllers/diasController') 
 const usuariosRoutes = require ('./controllers/usuariosController')
 const reservasDisponiblesRoutes = require ('./controllers/reservasdispoController')
+const horasRoutes = require('./controllers/horasController')
 
 const app =  express();
 const port = process.env.PORT || 9000;
@@ -13,7 +14,7 @@ const port = process.env.PORT || 9000;
 
 //middleware
 
-const routes = [camposRoutes , diasRoutes, usuariosRoutes ,reservasDisponiblesRoutes]
+const routes = [camposRoutes , diasRoutes, usuariosRoutes ,reservasDisponiblesRoutes, horasRoutes];
 
 app.use(express.json());
 app.use('/api',routes);

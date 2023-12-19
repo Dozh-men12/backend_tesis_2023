@@ -9,7 +9,7 @@ const { listarReservasDisponibles,listarRDporId,agregarRD,eliminarRD} = require 
 router.get('/reservas-disponibles', async (req, res) => {
 
     const data = await listarReservasDisponibles();
-    res.json(data);    
+    res.json(data);
 });
 
 //Listando las reservas por ID_usaurio
@@ -17,12 +17,12 @@ router.get('/reservas-disponibles/:id', async(req,res) =>{
 
     try {
         const data = await listarRDporId(req.params.id);
-        res.json(data)   
+        res.json(data)
     } catch (error) {
         console.error('Error al obtener campo por ID', error);
         res.status(500).json({ message: 'Error interno del servidor' });
     }
-    
+
 })
 
 //Agregando reservas 
@@ -49,7 +49,7 @@ router.delete('/reservas-disponibles/:id', async (req, res) =>{
         console.error("No se pudo eliminar la reserva" , error);
         res.status(404)
     }
-    
+
 })
 
 

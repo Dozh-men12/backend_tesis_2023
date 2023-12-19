@@ -17,6 +17,10 @@ const listarReservasDisponibles = async () => {
             .populate({
                 path: 'campo',
                 select: '-_id nombre', 
+            })
+            .populate({
+                path: 'hora',
+                select: '-_id nombre',
             });
 
         return data;
@@ -34,7 +38,7 @@ const listarRDporId = async (id) => {
             .findById(id)
             .populate({
                 path: 'estudiante',
-                select: '-_id nombres id_estudiante especialidad', // Excluye el campo _id
+                select: '-_id id_estudiante nombres especialidad', // Excluye el campo _id
             })
             .populate({
                 path: 'dia',
@@ -43,8 +47,12 @@ const listarRDporId = async (id) => {
             .populate({
                 path: 'campo',
                 select: '-_id nombre', 
+            })
+            .populate({
+                path: 'hora',
+                select: '-_id nombre',
             });
-            
+
 
         return data;
     } catch (error) {
