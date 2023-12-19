@@ -5,7 +5,7 @@ const usuariosSchema = new mongoose.Schema({
     id_estudiante: Number,
     nombres : String,
     apellidos: String,
-    dni: Number,
+    DNI: Number,
     fecNacimiento: Date,
     sexo : String,
     domicilio: String,

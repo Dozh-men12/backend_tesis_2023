@@ -1,7 +1,6 @@
 require('./database/database');
 const express = require('express') ;
 
-
 const camposRoutes = require('./controllers/camposController') 
 const diasRoutes = require('./controllers/diasController') 
 const usuariosRoutes = require ('./controllers/usuariosController')
@@ -11,6 +10,9 @@ const horasRoutes = require('./controllers/horasController')
 const app =  express();
 const port = process.env.PORT || 9000;
 
+var cors = require('cors')
+
+app.use(cors())
 
 //middleware
 
