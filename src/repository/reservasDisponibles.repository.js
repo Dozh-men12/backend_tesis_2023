@@ -61,12 +61,21 @@ const listarRDporId = async (id) => {
     }
 }
 
-//Agregando reservas
-const agregarRD = async (data) =>{
+// Agregando reservas con verificación
+const agregarRD = async (data) => {
+    const { campo, dia, hora } = data;
+  
+    // Verificar si el campo y la hora ya están reservados
+    const existingReservation = await reservasDisponiblesModel.findOne({ campo, dia, hora });
+  
+    if (existingReservation) {
+      throw new Error('Este campo ya está reservado para ese horario.');
+    }
+  
     await reservasDisponiblesModel.create(data);
     const todasLasReservas = await listarReservasDisponibles();
     return todasLasReservas;
-}
+};
 
 //Eliminando reserva
 

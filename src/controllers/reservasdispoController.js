@@ -25,17 +25,15 @@ router.get('/reservas-disponibles/:id', async(req,res) =>{
 
 })
 
-//Agregando reservas 
-
+// Agregando reservas con verificación de disponibilidad
 router.post('/reservas-disponibles', async (req, res) => {
-    try{
-        const data = await agregarRD(req.body)
-        res.json([data]);
-        console.log("Reserva nueva ingresada en la BD");
-
-    }catch(error){
-        console.error("La reserva no fue ingresada en la BD" , error);
-        res.status(404)
+    try {
+      const data = await agregarRD(req.body);
+      res.json(data);
+      console.log('Reserva nueva ingresada en la BD');
+    } catch (error) {
+      console.error('Error al agregar reserva:', error.message);
+      res.status(400).json({ message: error.message });
     }
 })
 
